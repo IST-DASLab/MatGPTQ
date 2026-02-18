@@ -19,6 +19,7 @@ Matryoshka Quantization (MatQuant) is a recent quantization approach showing tha
 - ```quant.py``` — MatGPTQ/GPTQ quantization
 - ```lmeval.py``` — LM Eval Harness evalution script 
 - ```eval_ppl.py``` — perplexity evalution script
+- ```pack_quantized_model.py`- packing script for vLLM deployment
 - ```setup.py``` - installation script for cuda-kernels
 - ```requirements.txt```- requirements file
 
@@ -80,6 +81,21 @@ llm = LLM(model="your-model", quantization="my_quant")
 ```
 
 See `inference_lib/ìnference_demo_vllm.py` as an example on how to implement it. To run the model see `inference_lib/scripts/run_inference_vllm.sh` for an example.
+
+#### Packing
+
+Models can be packed using `pack_quantized_model.py` as followed:
+
+```bash
+python pack_quantized_model.py \ 
+  --model_name_or_path /path/to/model \ 
+  --quantized_weights_path /path/to/quantized/weights \ 
+  --packed_output_path /output/path \ 
+  --inference_bitwidth 4 \ 
+  --master_bitwidth 8 \ 
+  --group_size 128 \ 
+  --quant_dtype float16
+```
 
 ## Citation
 
