@@ -1,7 +1,9 @@
-export MODEL_ID="meta-llama/Llama-3.1-8B-Instruct"
+#!/bin/bash
+
+MODEL_ID="meta-llama/Llama-3.1-8B-Instruct"
 # QUANT_PATH="/path/to/your/data/folder"  # Modify this path to point to your local folder
-export MASTER_BITWIDTH=8
-export UNIFORM_BITWIDTH=4
+MASTER_BITWIDTH=8
+UNIFORM_BITWIDTH=4
 
 python lmeval.py \
     --model hf \

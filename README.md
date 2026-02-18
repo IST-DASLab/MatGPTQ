@@ -14,10 +14,13 @@ Matryoshka Quantization (MatQuant) is a recent quantization approach showing tha
 
 - ```scripts/``` —  contains bash scripts with the required arguments to run the method
 - ```src/``` —  directory for helper methods and utility functions 
+- ```inference_lib/``` —  directory contains cuda-kernel and deployment, benchmarking scripts 
 - ```evo_quant_search.py``` — evolutionary quantization bitwidth allocation
 - ```quant.py``` — MatGPTQ/GPTQ quantization
 - ```lmeval.py``` — LM Eval Harness evalution script 
 - ```eval_ppl.py``` — perplexity evalution script
+- ```setup.py``` - installation script for cuda-kernels
+- ```requirements.txt```- requirements file
 
 ## Installation
 
@@ -53,7 +56,30 @@ We provide `lmeval.py` and `eval_ppl.py` scripts for evaluation on the [Language
 
 ## Deployment
 
-**Work In Progress**
+For deployment install our custom kernels and use our vLLM plugin to run it. Further information can be found in `./inference_lib`.
+
+### Available Models
+
+You can start by using our already quantized models at [ISTA-DASLab/MatGPTQ](https://huggingface.co/collections/ISTA-DASLab/matgptq). Simply update the `inference_bitwidth` parameter in the `config.json` file to your desired value, and you're all set.
+
+### Quick Start
+
+To install the kernel run the following command:
+
+```bash
+uv pip install --no-build-isolation -e . 
+```
+
+To deploy MatGPTQ models into various environment, you can use MatGPTQ with our vLLM plugin as followed (more information [here](https://docs.vllm.ai/en/latest/features/quantization/)). We recommend to use a clean and new environment (tested with vllm>=0.14.0):
+
+```python
+import vllm_matgptq
+from vllm import LLM
+
+llm = LLM(model="your-model", quantization="my_quant")
+```
+
+See `inference_lib/ìnference_demo_vllm.py` as an example on how to implement it. To run the model see `inference_lib/scripts/run_inference_vllm.sh` for an example.
 
 ## Citation
 

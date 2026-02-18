@@ -1,3 +1,5 @@
+#!/bin/bash
+
 MODEL="meta-llama/Llama-3.2-1B-Instruct"
 SEQUENCE_LENGTH=2048
 BIT_LEVEL=3
